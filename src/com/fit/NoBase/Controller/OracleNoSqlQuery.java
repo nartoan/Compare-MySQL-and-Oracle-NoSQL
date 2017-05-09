@@ -44,6 +44,9 @@ public class OracleNoSqlQuery {
         System.out.println(value2.toString());
     }
 
+    /**
+     * Test query with table API
+     */
     private void insertData() {
         TableAPI tableAPI = this.connect.getTableAPI();
         StatementResult statementResult = null;
@@ -56,11 +59,22 @@ public class OracleNoSqlQuery {
             Row row = table.createRow();
 
             //Put data into row
-            row.put("id",1);
+            row.put("id",2);
             row.put("title", "toan");
 
             //write data tp table
             tableAPI.put(row, null, null);
+
+            /**
+             *  write data into child table
+             */
+            Table myChildTable = tableAPI.getTable("title.complete_cast");
+            Row childRow = myChildTable.createRow();
+            childRow.put("id", 1);
+            childRow.put("id_cast", 1);
+            childRow.put("subject", "test thoi ma");
+            tableAPI.put(childRow, null,null);
+
         } catch (IllegalArgumentException Ie) {
             System.out.println("Sai cu phap !!!");
             Ie.printStackTrace();

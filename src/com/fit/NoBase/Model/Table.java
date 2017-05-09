@@ -1,11 +1,5 @@
 package com.fit.NoBase.Model;
 
-import com.fit.NoBase.Model.OracleNoSQLConnect;
-import oracle.kv.FaultException;
-import oracle.kv.KVStore;
-import oracle.kv.StatementResult;
-import oracle.kv.table.TableAPI;
-
 /**
  * Created by nartoan on 09/05/2017.
  */
