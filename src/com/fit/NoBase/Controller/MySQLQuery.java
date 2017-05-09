@@ -14,7 +14,7 @@ public class MySQLQuery {
 
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM aka_name LIMIT 50";
+            String sql = "SELECT * FROM title LIMIT 500";
             ResultSet resultSet = statement.executeQuery(sql);
             System.out.println("Data : "+ resultSet);
 

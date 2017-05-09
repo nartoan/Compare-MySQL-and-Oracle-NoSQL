@@ -1,10 +1,8 @@
 package com.fit.NoBase.Controller;
 
 import com.fit.NoBase.Model.OracleNoSQLConnect;
-import oracle.kv.KVStore;
-import oracle.kv.Key;
-import oracle.kv.Value;
-import oracle.kv.ValueVersion;
+import oracle.kv.*;
+import oracle.kv.table.TableAPI;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +14,6 @@ public class OracleNoSqlQuery {
     private KVStore connect = null;
     public OracleNoSqlQuery(KVStore kvStore) {
         this.connect = kvStore;
-        query();
     }
 
     public static void main(String[] args) {
@@ -25,6 +22,9 @@ public class OracleNoSqlQuery {
         System.out.println(oracleNoSqlQuery.getConnect());
     }
 
+    /**
+     * Test query with Key/Value API
+     */
     private void query() {
         List<String> majorPath = Arrays.asList("Login", "Toan");
         Key key = Key.createKey(majorPath);
@@ -40,6 +40,23 @@ public class OracleNoSqlQuery {
         Value value2 = vv2.getValue();
         System.out.println(value2.toString());
     }
+
+    private void insertData() {
+        TableAPI tableAPI = this.connect.getTableAPI();
+        StatementResult statementResult = null;
+        String statement = null;
+
+        try {
+
+        } catch (IllegalArgumentException Ie) {
+            System.out.println("Sai cu phap !!!");
+            Ie.printStackTrace();
+        } catch (FaultException e) {
+            System.out.println("Truy van khong thanh con!!!");
+        }
+    }
+
+
 
     public KVStore getConnect() {
         return connect;
