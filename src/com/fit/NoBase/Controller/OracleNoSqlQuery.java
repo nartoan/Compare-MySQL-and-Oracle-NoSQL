@@ -58,23 +58,25 @@ public class OracleNoSqlQuery {
             // Get a Row instance
             Row row = table.createRow();
 
-            //Put data into row
-            row.put("id",2);
-            row.put("title", "toan");
+            for (int i = 0; i < 2; i++) {
+                //Put data into row
+                row.put("id", 9 + i);
+                row.put("title", "toan");
+                row.put("xxxxx", 9);
 
-            //write data tp table
-            tableAPI.put(row, null, null);
+                //write data tp table
+                tableAPI.put(row, null, null);
 
-            /**
-             *  write data into child table
-             */
-            Table myChildTable = tableAPI.getTable("title.complete_cast");
-            Row childRow = myChildTable.createRow();
-            childRow.put("id", 1);
-            childRow.put("id_cast", 1);
-            childRow.put("subject", "test thoi ma");
-            tableAPI.put(childRow, null,null);
-
+                /**
+                 *  write data into child table
+                 */
+                Table myChildTable = tableAPI.getTable("title.complete_cast");
+                Row childRow = myChildTable.createRow();
+                childRow.put("id", 1 + i);
+                childRow.put("id_cast", 1 + i);
+                childRow.put("subject", "test thoi ma");
+                tableAPI.put(childRow, null, null);
+            }
         } catch (IllegalArgumentException Ie) {
             System.out.println("Sai cu phap !!!");
             Ie.printStackTrace();
@@ -83,7 +85,9 @@ public class OracleNoSqlQuery {
         }
     }
 
+    private void write_complete_cast() {
 
+    }
 
     public KVStore getConnect() {
         return connect;
