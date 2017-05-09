@@ -4,11 +4,13 @@ import com.fit.NoBase.Model.MySQLConnect;
 import com.fit.NoBase.Model.OracleNoSQLConnect;
 import oracle.kv.KVStore;
 import oracle.kv.StatementResult;
-import oracle.kv.table.Row;
-import oracle.kv.table.Table;
-import oracle.kv.table.TableAPI;
+import oracle.kv.impl.api.table.ArrayBuilder;
+import oracle.kv.impl.api.table.ArrayDefImpl;
+import oracle.kv.table.*;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by nartoan on 10/05/2017.
@@ -72,6 +74,9 @@ public class Migrate {
                         }
                     }
                 }
+                //Insert keyword
+               // row.put("keyword", "");
+
                 System.out.println(dem++ + " : ++++" + row);
                 tableAPI.put(row, null, null);
             }
@@ -81,5 +86,27 @@ public class Migrate {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    private ArrayList insertKeyWord(int id_movie) {
+        ArrayList list = new ArrayList();
+        try {
+            Statement statementSQL2 = connectSQL.createStatement();
+            ResultSet resultSet2 = statementSQL2.executeQuery(
+                    "SELECT keyword FROM movie_keyword JOIN keyword ON keyword.id = movie_keyword.keyword_id WHERE movie_id =" + id_movie);
+
+            int i = 1;
+            while (resultSet2.next()) {
+                list.add(resultSet2.getString(i++));
+            }
+
+            resultSet2.close();
+            statementSQL2.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }
