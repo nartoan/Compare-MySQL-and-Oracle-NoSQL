@@ -2,6 +2,8 @@ package com.fit.NoBase.Controller;
 
 import com.fit.NoBase.Model.OracleNoSQLConnect;
 import oracle.kv.*;
+import oracle.kv.table.Row;
+import oracle.kv.table.Table;
 import oracle.kv.table.TableAPI;
 
 import java.util.Arrays;
@@ -14,6 +16,7 @@ public class OracleNoSqlQuery {
     private KVStore connect = null;
     public OracleNoSqlQuery(KVStore kvStore) {
         this.connect = kvStore;
+        insertData();
     }
 
     public static void main(String[] args) {
@@ -47,7 +50,17 @@ public class OracleNoSqlQuery {
         String statement = null;
 
         try {
+            Table table = tableAPI.getTable("title");
 
+            // Get a Row instance
+            Row row = table.createRow();
+
+            //Put data into row
+            row.put("id",1);
+            row.put("title", "toan");
+
+            //write data tp table
+            tableAPI.put(row, null, null);
         } catch (IllegalArgumentException Ie) {
             System.out.println("Sai cu phap !!!");
             Ie.printStackTrace();
